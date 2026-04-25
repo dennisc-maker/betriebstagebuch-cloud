@@ -188,26 +188,9 @@ export function LoginForm() {
             background: "var(--sev-ok)",
           }}
         />
-        Server erreichbar · Daten lokal in Idar-Oberstein
+        Server erreichbar · Daten in Frankfurt (eu-central-1)
       </div>
 
-      <div
-        style={{
-          fontSize: 11.5,
-          color: "var(--ink-500)",
-          paddingTop: 14,
-          borderTop: "1px solid var(--hair)",
-          lineHeight: 1.6,
-        }}
-      >
-        <strong style={{ color: "var(--ink-700)" }}>Demo-Logins:</strong>
-        <br />
-        Disponent: <span className="code">andre</span> /{" "}
-        <span className="code">demo</span>
-        <br />
-        Betriebsleiter: <span className="code">leiter</span> /{" "}
-        <span className="code">demo</span>
-      </div>
     </form>
   );
 }

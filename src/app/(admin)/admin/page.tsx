@@ -32,14 +32,39 @@ export default async function AdminPage() {
   if (!session) redirect("/login");
   if (session.role !== "betriebsleiter" && session.role !== "admin") redirect("/");
 
-  const counts = await Promise.all([
-    db.select({ c: sql<number>`count(*)` }).from(users).then((r) => Number(r[0]?.c ?? 0)),
-    db.select({ c: sql<number>`count(*)` }).from(incidents).then((r) => Number(r[0]?.c ?? 0)),
-    ...CARDS.map((c) => db.select({ c: sql<number>`count(*)` }).from(c.table).then((r) => Number(r[0]?.c ?? 0))),
-  ]);
-  const userCount = counts[0];
-  const incidentCount = counts[1];
-  const tableCounts = counts.slice(2);
+  const allCountsRow = await db.execute(sql`
+    SELECT
+      (SELECT COUNT(*) FROM users)::int AS users,
+      (SELECT COUNT(*) FROM incidents)::int AS incidents,
+      (SELECT COUNT(*) FROM fault_catalog)::int AS fault_catalog,
+      (SELECT COUNT(*) FROM dispatchers)::int AS dispatchers,
+      (SELECT COUNT(*) FROM bus_lines)::int AS bus_lines,
+      (SELECT COUNT(*) FROM vehicles)::int AS vehicles,
+      (SELECT COUNT(*) FROM drivers)::int AS drivers,
+      (SELECT COUNT(*) FROM workshop_staff)::int AS workshop_staff,
+      (SELECT COUNT(*) FROM outage_reasons)::int AS outage_reasons,
+      (SELECT COUNT(*) FROM measure_templates)::int AS measure_templates,
+      (SELECT COUNT(*) FROM driver_message_types)::int AS driver_message_types,
+      (SELECT COUNT(*) FROM notified_parties)::int AS notified_parties
+  `);
+  const r = (allCountsRow as unknown as Array<Record<string, number>>)[0] ?? {};
+  const userCount = Number(r.users ?? 0);
+  const incidentCount = Number(r.incidents ?? 0);
+  const tableCounts = CARDS.map((c) => {
+    const map: Record<string, string> = {
+      fehlerkatalog: "fault_catalog",
+      disponenten: "dispatchers",
+      linien: "bus_lines",
+      fahrzeuge: "vehicles",
+      fahrer: "drivers",
+      werkstatt: "workshop_staff",
+      ausfallgruende: "outage_reasons",
+      massnahmen: "measure_templates",
+      fahrermeldungen: "driver_message_types",
+      informierte: "notified_parties",
+    };
+    return Number(r[map[c.key] ?? ""] ?? 0);
+  });
 
   return (
     <>

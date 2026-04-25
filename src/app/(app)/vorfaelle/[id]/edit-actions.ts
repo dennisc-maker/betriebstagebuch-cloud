@@ -26,7 +26,7 @@ export async function updateIncident(id: number, data: {
   for (const [k, v] of Object.entries(data)) {
     if (v !== undefined) cleaned[k] = v === "" ? null : v;
   }
-  cleaned.updatedAt = new Date().toISOString();
+  cleaned.updatedAt = new Date();
 
   await db.update(incidents).set(cleaned as never).where(eq(incidents.id, id));
   await db.insert(incidentAudit).values({
@@ -50,7 +50,7 @@ export async function deleteIncident(id: number) {
 
   await db
     .update(incidents)
-    .set({ deletedAt: new Date().toISOString() })
+    .set({ deletedAt: new Date() })
     .where(eq(incidents.id, id));
   await db.insert(incidentAudit).values({
     incidentId: id,

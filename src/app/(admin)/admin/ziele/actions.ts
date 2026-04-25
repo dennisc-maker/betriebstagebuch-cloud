@@ -30,7 +30,7 @@ export async function saveTargets(
     if (existing.length > 0) {
       await db
         .update(monthlyTargets)
-        .set({ maxCount, setBy: session.userId, setAt: new Date().toISOString() })
+        .set({ maxCount, setBy: session.userId, setAt: new Date() })
         .where(
           and(
             eq(monthlyTargets.year, year),

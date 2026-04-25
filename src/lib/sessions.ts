@@ -14,7 +14,7 @@ export async function touchSession(userId: number, ip?: string, ua?: string) {
   if (existing) {
     await db
       .update(userSessions)
-      .set({ lastSeen: new Date().toISOString() })
+      .set({ lastSeen: new Date() })
       .where(eq(userSessions.id, existing.id));
   } else {
     await db.insert(userSessions).values({
@@ -26,7 +26,7 @@ export async function touchSession(userId: number, ip?: string, ua?: string) {
 }
 
 export async function getActiveUsers() {
-  const cutoff = new Date(Date.now() - SESSION_TIMEOUT_MS).toISOString();
+  const cutoff = new Date(Date.now() - SESSION_TIMEOUT_MS);
   return db
     .select({
       userId: userSessions.userId,

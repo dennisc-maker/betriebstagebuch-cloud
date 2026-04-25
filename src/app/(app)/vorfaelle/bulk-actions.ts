@@ -16,7 +16,7 @@ export async function bulkUpdateStatus(
 
   await db
     .update(incidents)
-    .set({ status, updatedAt: new Date().toISOString() })
+    .set({ status, updatedAt: new Date() })
     .where(inArray(incidents.id, ids));
 
   for (const id of ids) {
@@ -41,8 +41,7 @@ export async function bulkDelete(ids: number[]) {
   }
   if (ids.length === 0) return { error: "Keine Auswahl" };
 
-  const now = new Date().toISOString();
-  await db.update(incidents).set({ deletedAt: now }).where(inArray(incidents.id, ids));
+  await db.update(incidents).set({ deletedAt: new Date() }).where(inArray(incidents.id, ids));
 
   for (const id of ids) {
     await db.insert(incidentAudit).values({

@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
 import { incidents, faultCatalog, vehicles, busLines, dispatchers, drivers, outageReasons } from "@/lib/db/schema";
+
+export const maxDuration = 30;
 import { sql, and, eq, isNull, desc, asc } from "drizzle-orm";
 import { formatDateShort, SHIFT_LABEL } from "@/lib/utils";
 import Link from "next/link";

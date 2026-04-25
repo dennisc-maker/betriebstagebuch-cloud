@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 30;
 import {
   dispatchers, drivers, vehicles, busLines, faultCatalog, outageReasons,
   measureTemplates, driverMessageTypes, notifiedParties, workshopStaff,

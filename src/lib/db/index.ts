@@ -8,8 +8,8 @@ if (!url) {
 }
 
 const globalForPg = globalThis as unknown as { _pgClient?: ReturnType<typeof postgres> };
-const client = globalForPg._pgClient ?? postgres(url, { prepare: false, max: 5, idle_timeout: 20, connect_timeout: 10, ssl: "require" });
-if (process.env.NODE_ENV !== "production") globalForPg._pgClient = client;
+const client = globalForPg._pgClient ?? postgres(url, { prepare: false, max: 10, idle_timeout: 20, connect_timeout: 10, ssl: "require" });
+globalForPg._pgClient = client;
 
 export const db = drizzle(client, { schema });
 export { client };

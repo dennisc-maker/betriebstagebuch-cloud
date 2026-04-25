@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+
+export const dynamic = "force-dynamic";
 import { AppShell } from "@/components/layout/app-shell";
 import { db } from "@/lib/db";
 import { incidents, faultCatalog, monthlyTargets } from "@/lib/db/schema";

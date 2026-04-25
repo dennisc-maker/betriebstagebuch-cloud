@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+
+export const maxDuration = 30;
 import Link from "next/link";
 import { db } from "@/lib/db";
 import {

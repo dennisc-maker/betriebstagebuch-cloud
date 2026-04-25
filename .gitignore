@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+*.log
+.env
+.env.local
+.env.*.local
+.DS_Store
+data/extracted.json
+data/Maerz_2026.xlsm
+data/uploads/
+.vercel
+drizzle/
+04_testing/
+05_sales/

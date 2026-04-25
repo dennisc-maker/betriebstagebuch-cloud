@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 import {
   dispatchers, drivers, vehicles, busLines, faultCatalog, outageReasons,
   measureTemplates, driverMessageTypes, notifiedParties, workshopStaff,

@@ -8,7 +8,7 @@ import { addComment, deleteComment } from "./edit-actions";
 type Comment = {
   id: number;
   body: string;
-  createdAt: string;
+  createdAt: string | Date;
   userId: number;
   userName: string | null;
   userRole: string | null;

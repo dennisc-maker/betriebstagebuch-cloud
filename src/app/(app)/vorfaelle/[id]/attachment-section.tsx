@@ -11,7 +11,7 @@ type Attachment = {
   mimeType: string;
   fileSize: number;
   storagePath: string;
-  createdAt: string;
+  createdAt: string | Date;
   userName: string | null;
 };
 
